@@ -16,8 +16,9 @@ public class PlayerController : MonoBehaviour {
 	public float tilt = 1; //usado para tombar a nave ao se mover horizontalmente
 	public Boundary boundary; //limites de movimentação
 	public GameObject shot;
-	public Transform shotSpawn;
 	public float fireRate, nextFire;
+	public Transform[] shotSpawns;
+	public int qtdTiro = 1;
 
 	void Update()
 	{
@@ -25,7 +26,11 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButton ("Fire1") && Time.time >= nextFire) {
 			GetComponent<AudioSource> ().Play ();
 			nextFire = Time.time + fireRate; //atualiza tempo necessário para atirar
-			Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
+			for ( int contador = 0; contador < qtdTiro; contador++ )
+			{
+				Transform shotSpawn = shotSpawns [contador];
+				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
+			}
 		}
 	}
 
