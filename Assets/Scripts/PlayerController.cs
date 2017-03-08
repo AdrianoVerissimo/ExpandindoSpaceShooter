@@ -58,4 +58,13 @@ public class PlayerController : MonoBehaviour {
 		0.0f,
 		GetComponent<Rigidbody> ().velocity.x * -tilt);
 	}
+
+	public void UpgradeShot(int qtd)
+	{
+		qtdTiro += qtd;
+		if (qtdTiro > shotSpawns.Length)
+		{
+			qtdTiro = shotSpawns.Length;
+		}
+	}
 }
