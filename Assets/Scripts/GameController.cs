@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*[System.Serializable]
+public class LevelConfig
+{
+	public int hazardCount;
+}*/
+
 public class GameController : MonoBehaviour {
 
 	public GameObject[] hazards; //array com os asteróides passados
@@ -15,6 +21,8 @@ public class GameController : MonoBehaviour {
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
+
+	public int currentLevel = 0;
 
  	private int score;
 	private bool gameOver;
@@ -30,6 +38,7 @@ public class GameController : MonoBehaviour {
 
 		score = 0;
 		UpdateScore ();
+
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
 		StartCoroutine(SpawnWaves ());
 	}
@@ -70,6 +79,8 @@ public class GameController : MonoBehaviour {
 
 			//espera x segundos até começar outra onda de asteróides
 			yield return new WaitForSeconds (waveWait);
+
+			currentLevel++;
 
 			//se marcado que houve game over
 			if (gameOver) {
