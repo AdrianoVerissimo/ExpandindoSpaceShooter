@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*[System.Serializable]
+[System.Serializable]
 public class LevelConfig
 {
-	public int hazardCount;
-}*/
+	public GameObject[] levelObjects;
+}
 
 public class GameController : MonoBehaviour {
 
 	public GameObject[] hazards; //array com os asteróides passados
+
 	public Vector3 spawnValues;
 	public int hazardCount = 1;
 	public float spawnWait;
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour {
 	public GUIText gameOverText;
 
 	public int currentLevel = 0;
+	public LevelConfig[] levelConfig;
 
  	private int score;
 	private bool gameOver;
@@ -63,24 +65,31 @@ public class GameController : MonoBehaviour {
 
 		//loop para ficar sempre executando
 		while (true) {
+
+			int levelObjectsCount = levelConfig[currentLevel].levelObjects.Length;
+
 			//para x asteróides
-			for (int i = 0; i < hazardCount; i++) {
+			for (int i = 0; i < levelObjectsCount; i++) {
 
 				//pega uma posição aleatória da array de asteróides
-				GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+				//GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+				GameObject hazard = levelConfig[currentLevel].levelObjects[i];
+
 				//define uma posição de acordo com o que foi passado
 				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity; //sem rotação
-				Instantiate (hazard, spawnPosition, spawnRotation); //instancia o tiro
+				Instantiate (hazard, spawnPosition, spawnRotation); //instancia o asteróide
 
 				//espera x segundos para instanciar outro asteróide
 				yield return new WaitForSeconds (spawnWait);
 			}
 
+			currentLevel++;
+			if (currentLevel >= levelConfig.Length)
+				currentLevel = levelConfig.Length - 1;
+
 			//espera x segundos até começar outra onda de asteróides
 			yield return new WaitForSeconds (waveWait);
-
-			currentLevel++;
 
 			//se marcado que houve game over
 			if (gameOver) {
