@@ -7,6 +7,7 @@ public class DestroyByContact : MonoBehaviour {
 	public GameObject explosion;
 	public GameObject playerExplosion;
 	public int scoreValue;
+	public int life = 1; //energia
 
 	private GameController gameController;
 
@@ -28,13 +29,15 @@ public class DestroyByContact : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		//Debug.Log (other.name); //exibe no console nome do objeto que destruiu o asteróide
-
 		//se colidir com boundary, abortar script
 		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy"))
 			return;
 
-		if (explosion != null)
+		//diminui energia
+		life--;
+
+		//só gera explosão se possui uma e não tem mais energia
+		if (explosion != null && life == 0)
 		{
 			Instantiate (explosion, transform.position, transform.rotation); //instancia explosão
 		}
@@ -46,13 +49,14 @@ public class DestroyByContact : MonoBehaviour {
 			gameController.GameOver(); //ativa o Game Over
 		}
 
-		//add pontos
-		gameController.AddScore (scoreValue);
+		//não tem mais energia
+		if (life == 0)
+		{
+			//add pontos
+			gameController.AddScore (scoreValue);
+			Destroy (gameObject);
+		}
 
-		//destrói o tiro e o asteróide
-		//desde que esteja no mesmo frame, não importa a ordem que o Destroy é utilizado: o objeto não é destruído imediatamente,
-		//e sim marcado para ser destruído no final do frame
-		Destroy (other.gameObject);
-		Destroy (gameObject);
+		Destroy (other.gameObject);	
 	}
 }
