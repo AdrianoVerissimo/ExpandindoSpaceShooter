@@ -10,6 +10,7 @@ public class DestroyByContact : MonoBehaviour {
 	public int life = 1; //energia
 
 	private GameController gameController;
+	private Animator damageAC;
 
 	void Start()
 	{
@@ -25,6 +26,8 @@ public class DestroyByContact : MonoBehaviour {
 		{
 			Debug.Log ("Não foi possível encontrar o script 'GameController'.");
 		}
+
+		damageAC = GetComponent<Animator> ();
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -35,6 +38,11 @@ public class DestroyByContact : MonoBehaviour {
 
 		//diminui energia
 		life--;
+		if (life > 0 && damageAC != null)
+		{
+			damageAC.SetTrigger("Damage");
+			Debug.Log ("oi");
+		}
 
 		//só gera explosão se possui uma e não tem mais energia
 		if (explosion != null && life == 0)
