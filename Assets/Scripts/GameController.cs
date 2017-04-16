@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class LevelConfig
 {
+	public bool isBoss = false, bossDefeated = false;
 	public GameObject[] levelObjects;
 }
 
@@ -42,7 +43,7 @@ public class GameController : MonoBehaviour {
 		UpdateScore ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
-		//StartCoroutine(SpawnWaves ());
+		StartCoroutine(SpawnWaves ());
 	}
 
 	//em cada frame
@@ -84,9 +85,16 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds (spawnWait);
 			}
 
+			//sobe um level
 			currentLevel++;
 			if (currentLevel >= levelConfig.Length)
 				currentLevel = levelConfig.Length - 1;
+
+			//está em um chefe, o chefe não foi derrotado e não houve Game Over
+			//o código se mantém aqui até o chefe ser derrotado ou o jogador perder
+			while (levelConfig [currentLevel].isBoss && !levelConfig [currentLevel].bossDefeated && !gameOver) {
+				yield return null; //continua execução do loop no próximo frame
+			}
 
 			//espera x segundos até começar outra onda de asteróides
 			yield return new WaitForSeconds (waveWait);
