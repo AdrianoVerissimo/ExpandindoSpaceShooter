@@ -39,10 +39,7 @@ public class DestroyByContact : MonoBehaviour {
 		//diminui energia
 		life--;
 		if (life > 0 && damageAC != null)
-		{
 			damageAC.SetTrigger("Damage");
-			Debug.Log ("oi");
-		}
 
 		//só gera explosão se possui uma e não tem mais energia
 		if (explosion != null && life == 0)
