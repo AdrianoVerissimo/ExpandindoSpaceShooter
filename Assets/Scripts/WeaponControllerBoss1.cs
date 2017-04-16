@@ -11,8 +11,8 @@ public class WeaponControllerBoss1 : MonoBehaviour {
 	public float pauseAfterShots;
 	public int numberOfShots = 5;
 
-	private bool shotSide = false;
-	private bool shotMiddle = true;
+	private bool shotSide = true;
+	private bool shotMiddle = false;
 	private AudioSource audioSource;
 
 	// Use this for initialization
