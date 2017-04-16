@@ -10,21 +10,26 @@ public class DestroyByContact : MonoBehaviour {
 	public int life = 1; //energia
 
 	private GameController gameController;
+	private GameObject objGameController;
+
 	private Animator damageAC;
 
 	void Start()
 	{
-		//busca a instancia de Game Controller
-		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-		//se encontrou, pegar essa referência
-		if (gameControllerObject != null)
+		try
 		{
-			gameController = gameControllerObject.GetComponent<GameController>();
+			objGameController = GameObject.FindGameObjectWithTag("GameController");
+			if (objGameController == null)
+				throw new UnityException("É necessário ter o objeto 'Game Controller' para o chefe funcionar.");
+
+			gameController = objGameController.GetComponent<GameController>();
+			if (gameController == null)
+				throw new UnityException("O objeto 'Game Controller' precisa ter o script 'GameController.cs'.");
 		}
-		//se a referência não foi pega, então exibir mensagem de log
-		if (gameController == null)
+		catch (System.Exception ex)
 		{
-			Debug.Log ("Não foi possível encontrar o script 'GameController'.");
+			if (ex.Message != null)
+				Debug.Log (ex.Message);
 		}
 
 		damageAC = GetComponent<Animator> ();
@@ -55,11 +60,16 @@ public class DestroyByContact : MonoBehaviour {
 		}
 
 		//não tem mais energia
-		if (life == 0)
+		if (life <= 0)
 		{
 			//add pontos
 			gameController.AddScore (scoreValue);
 			Destroy (gameObject);
+
+			if (CompareTag("Boss"))
+			{
+				gameController.DefeatedBoss (true);
+			}
 		}
 
 		Destroy (other.gameObject);	

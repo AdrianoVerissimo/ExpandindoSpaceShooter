@@ -127,4 +127,12 @@ public class GameController : MonoBehaviour {
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 	}
+
+	public void DefeatedBoss(bool defeat)
+	{
+		if (!levelConfig [currentLevel].isBoss)
+			return;
+		
+		levelConfig [currentLevel].bossDefeated = defeat;
+	}
 }

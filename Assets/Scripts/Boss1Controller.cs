@@ -12,24 +12,26 @@ public class Boss1Controller : MonoBehaviour {
 	private WeaponControllerBoss1 weaponControllerBoss1;
 
 	private bool aparecer = true; //indica se o chefe ainda está aparecendo
-	private bool errorScriptLoad = false; //indica se ocorreu algum erro ao ler script
+	private bool errorLoadObject = false; //indica se ocorreu algum erro ao ler script
 
 	// Use this for initialization
-	void Start () {
-		//pega scripts
-		mover = GetComponent<Mover>();
-		moveHorizontalPingPong = GetComponent<MoveHorizontalPingPong>();
-		weaponControllerBoss1 = GetComponent<WeaponControllerBoss1> ();
-
+	void Start ()
+	{
 		try
 		{
-			//houve erro ao ler algum script
+			//pega scripts
+			mover = GetComponent<Mover>();
+			moveHorizontalPingPong = GetComponent<MoveHorizontalPingPong>();
+			weaponControllerBoss1 = GetComponent<WeaponControllerBoss1> ();
+
+			//houve erro ao ler encontrar algum script
 			if (mover == null)
 				throw new UnityException("É necessário usar o script 'Mover.cs'.");
 			if (moveHorizontalPingPong == null)
 				throw new UnityException("É necessário usar o script 'MoveHorizontalPingPong.cs'.");
 			if (weaponControllerBoss1 == null)
 				throw new UnityException("É necessário usar o script 'WeaponControllerBoss1.cs'.");
+
 		}
 		catch (System.Exception ex)
 		{
@@ -37,11 +39,11 @@ public class Boss1Controller : MonoBehaviour {
 			if (ex.Message != null)
 				Debug.Log (ex.Message);
 			
-			errorScriptLoad = true; //marca que houve erro em leitura de script
+			errorLoadObject = true; //marca que houve erro em leitura de script
 		}
 
 		//encerra
-		if (errorScriptLoad)
+		if (errorLoadObject)
 			return;
 
 		//habilita/desabilita scripts
@@ -53,7 +55,7 @@ public class Boss1Controller : MonoBehaviour {
 	void FixedUpdate ()
 	{
 		//encerra
-		if (errorScriptLoad)
+		if (errorLoadObject)
 			return;
 
 		//chegou na posição desejada
