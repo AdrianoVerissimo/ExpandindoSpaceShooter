@@ -38,7 +38,7 @@ public class DestroyByContact : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		//se colidir com boundary, abortar script
-		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy"))
+		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Boss"))
 			return;
 
 		//diminui energia

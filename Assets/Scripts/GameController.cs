@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour {
 	public GameObject[] hazards; //array com os asteróides passados
 
 	public Vector3 spawnValues;
+	public Vector3 bossSpawnValues;
+
 	public int hazardCount = 1;
 	public float spawnWait;
 	public float startWait;
@@ -76,8 +78,13 @@ public class GameController : MonoBehaviour {
 				//GameObject hazard = hazards[Random.Range(0, hazards.Length)];
 				GameObject hazard = levelConfig[currentLevel].levelObjects[i];
 
+				Vector3 spawnPosition;
+				if (levelConfig [currentLevel].isBoss)
+					spawnPosition = bossSpawnValues;
+				else
+					spawnPosition = new Vector3(Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+
 				//define uma posição de acordo com o que foi passado
-				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity; //sem rotação
 				Instantiate (hazard, spawnPosition, spawnRotation); //instancia o asteróide
 
@@ -85,16 +92,16 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds (spawnWait);
 			}
 
-			//sobe um level
-			currentLevel++;
-			if (currentLevel >= levelConfig.Length)
-				currentLevel = levelConfig.Length - 1;
-
 			//está em um chefe, o chefe não foi derrotado e não houve Game Over
 			//o código se mantém aqui até o chefe ser derrotado ou o jogador perder
 			while (levelConfig [currentLevel].isBoss && !levelConfig [currentLevel].bossDefeated && !gameOver) {
 				yield return null; //continua execução do loop no próximo frame
 			}
+
+			//sobe um level
+			currentLevel++;
+			if (currentLevel >= levelConfig.Length)
+				currentLevel = levelConfig.Length - 1;
 
 			//espera x segundos até começar outra onda de asteróides
 			yield return new WaitForSeconds (waveWait);
