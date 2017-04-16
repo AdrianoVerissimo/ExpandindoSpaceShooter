@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss1Controller : MonoBehaviour {
 
+	public float initialStopZ = 12f; //indica a posição Z que o chefe parará enquanto aparece
+
 	//referências para scripts
 	private Mover mover;
 	private MoveHorizontalPingPong moveHorizontalPingPong;
@@ -55,7 +57,7 @@ public class Boss1Controller : MonoBehaviour {
 			return;
 
 		//chegou na posição desejada
-		if (aparecer && transform.position.z <= 12)
+		if (aparecer && transform.position.z <= initialStopZ)
 		{
 			//habilita/desabilita scripts
 			aparecer = false;
