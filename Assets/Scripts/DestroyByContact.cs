@@ -56,7 +56,7 @@ public class DestroyByContact : MonoBehaviour {
 		if (other.CompareTag ("Player"))
 		{
 			Instantiate (playerExplosion, other.transform.position, other.transform.rotation); //instancia explosão do jogador
-			gameController.GameOver(); //ativa o Game Over
+			gameController.GameOver(false); //ativa o Game Over
 		}
 
 		//não tem mais energia

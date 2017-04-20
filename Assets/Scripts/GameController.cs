@@ -107,11 +107,17 @@ public class GameController : MonoBehaviour {
 
 			//sobe um level
 			currentLevel++;
+
 			if (currentLevel >= levelConfig.Length)
+			{
+				GameOver (true);
 				currentLevel = levelConfig.Length - 1;
+			}
 
 			//espera x segundos até começar outra onda de asteróides
 			yield return new WaitForSeconds (waveWait);
+
+
 
 			//se marcado que houve game over
 			if (gameOver) {
@@ -136,13 +142,18 @@ public class GameController : MonoBehaviour {
 	}
 
 	//exibe e ativa o Game Over
-	public void GameOver()
+	public void GameOver(bool venceu = false)
 	{
-		gameOverText.text = "Game Over!";
+		if (!venceu)
+			gameOverText.text = "Game Over!";
+		else
+			gameOverText.text = "You Win!";
+		
 		gameOver = true;
 
-		finalScoreText.text = "Score: " + score;
-		highScoreText.text = "High Score: " + score;
+		finalScoreText.text = "Score: " + score.ToString();
+		highScoreText.text = "High Score: " + score.ToString();
+
 	}
 
 	public void DefeatedBoss(bool defeat)
