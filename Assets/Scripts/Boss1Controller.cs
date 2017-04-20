@@ -17,7 +17,6 @@ public class Boss1Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		Debug.Log ("oi");
 		try
 		{
 			//pega scripts

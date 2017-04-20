@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LevelConfig
@@ -26,6 +27,9 @@ public class GameController : MonoBehaviour {
 	public GUIText restartText;
 	public GUIText gameOverText;
 
+	public Text finalScoreText;
+	public Text highScoreText;
+
 	public int currentLevel = 0;
 	public LevelConfig[] levelConfig;
 
@@ -40,6 +44,9 @@ public class GameController : MonoBehaviour {
 
 		restartText.text = "";
 		gameOverText.text = "";
+
+		finalScoreText.text = "";
+		highScoreText.text = "";
 
 		score = 0;
 		UpdateScore ();
@@ -133,6 +140,9 @@ public class GameController : MonoBehaviour {
 	{
 		gameOverText.text = "Game Over!";
 		gameOver = true;
+
+		finalScoreText.text = "Score: " + score;
+		highScoreText.text = "High Score: " + score;
 	}
 
 	public void DefeatedBoss(bool defeat)
