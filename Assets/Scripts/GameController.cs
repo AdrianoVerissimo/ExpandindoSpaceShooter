@@ -37,7 +37,6 @@ public class GameController : MonoBehaviour {
 	private bool gameOver;
 	private bool restart;
 
-	private int highScore;
 	private DataController dataController;
 
 	void Start()
@@ -63,6 +62,7 @@ public class GameController : MonoBehaviour {
 
 	}
 
+	//carrega informações de jogos anteriores
 	void LoadData()
 	{
 		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour {
 	//exibe e ativa o Game Over
 	public void GameOver(bool venceu = false)
 	{
-		dataController.SubmitHighScore (score);
+		dataController.SubmitHighScore (score); //envia recorde
 
 		if (!venceu)
 			gameOverText.text = "Game Over!";
@@ -169,7 +169,7 @@ public class GameController : MonoBehaviour {
 		gameOver = true;
 
 		finalScoreText.text = "Score: " + score.ToString();
-		highScoreText.text = "High Score: " + dataController.GetHighScore().ToString();
+		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
 
 	}
 

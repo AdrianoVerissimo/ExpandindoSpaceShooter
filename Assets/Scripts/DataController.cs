@@ -11,6 +11,7 @@ public class DataController :MonoBehaviour
 		LoadPlayerProgress ();
 	}
 
+	//carrega as informações de jogos anteriores do jogador
 	public void LoadPlayerProgress()
 	{
 		playerProgress = new PlayerProgress ();
@@ -18,11 +19,13 @@ public class DataController :MonoBehaviour
 		playerProgress.highScore = GetHighScore ();
 	}
 
+	//salva uma pontuação como recorde
 	public void SetHighScore(int score)
 	{
 		PlayerPrefs.SetInt ("HighScore", score);
 	}
 
+	//pega um recorde salvo
 	public int GetHighScore()
 	{
 		if (PlayerPrefs.HasKey ("HighScore"))
@@ -31,9 +34,25 @@ public class DataController :MonoBehaviour
 		return 0;
 	}
 
+	//pega o recorde salvo na memória
+	public int GetLocalHighScore ()
+	{
+		return playerProgress.highScore;
+	}
+
+	//retorna o recorde salvo na memória
+	public void SetLocalHighScore(int score)
+	{
+		playerProgress.highScore = score;
+	}
+
+	//envia o recorde. Se for maior que o atual recorde, então atualizar
 	public void SubmitHighScore(int score)
 	{
-		if (!PlayerPrefs.HasKey("HighScore") || score > PlayerPrefs.GetInt ("HighScore"))
+		if (!PlayerPrefs.HasKey ("HighScore") || score > PlayerPrefs.GetInt ("HighScore"))
+		{
 			SetHighScore (score);
+			SetLocalHighScore (score);
+		}
 	}
 }
