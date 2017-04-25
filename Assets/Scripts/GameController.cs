@@ -37,6 +37,9 @@ public class GameController : MonoBehaviour {
 	private bool gameOver;
 	private bool restart;
 
+	private int highScore;
+	private DataController dataController;
+
 	void Start()
 	{
 		gameOver = false;
@@ -48,11 +51,22 @@ public class GameController : MonoBehaviour {
 		finalScoreText.text = "";
 		highScoreText.text = "";
 
+		LoadData ();
+		//dataController.SetHighScore (0);
+
 		score = 0;
 		UpdateScore ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
 		StartCoroutine(SpawnWaves ());
+
+
+	}
+
+	void LoadData()
+	{
+		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
+		dataController.LoadPlayerProgress ();
 	}
 
 	//em cada frame
@@ -123,6 +137,7 @@ public class GameController : MonoBehaviour {
 			if (gameOver) {
 				restartText.text = "Pressione 'R' para reiniciar o jogo."; //exibe texto para reiniciar o jogo
 				restart = true; //marca que ocorrerá o reinício do jogo
+
 				break;
 			}
 		}
@@ -144,6 +159,8 @@ public class GameController : MonoBehaviour {
 	//exibe e ativa o Game Over
 	public void GameOver(bool venceu = false)
 	{
+		dataController.SubmitHighScore (score);
+
 		if (!venceu)
 			gameOverText.text = "Game Over!";
 		else
@@ -152,7 +169,7 @@ public class GameController : MonoBehaviour {
 		gameOver = true;
 
 		finalScoreText.text = "Score: " + score.ToString();
-		highScoreText.text = "High Score: " + score.ToString();
+		highScoreText.text = "High Score: " + dataController.GetHighScore().ToString();
 
 	}
 
