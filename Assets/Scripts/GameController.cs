@@ -52,7 +52,6 @@ public class GameController : MonoBehaviour {
 		highScoreText.text = "";
 
 		LoadData ();
-		//dataController.SetHighScore (0);
 
 		score = 0;
 		UpdateScore ();
