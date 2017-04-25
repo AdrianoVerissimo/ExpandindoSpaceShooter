@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 	public float waveWait;
 
 	public Text scoreText;
+	public Text gameplayHighScoreText;
 	public Text restartText;
 	public Text gameOverText;
 
@@ -67,6 +68,8 @@ public class GameController : MonoBehaviour {
 	{
 		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
 		dataController.LoadPlayerProgress ();
+
+		gameplayHighScoreText.text = "High Score: " + dataController.GetLocalHighScore ();
 	}
 
 	//em cada frame
@@ -153,7 +156,12 @@ public class GameController : MonoBehaviour {
 	//atualiza texto da pontuação
 	void UpdateScore()
 	{
+		int highScore = dataController.GetLocalHighScore ();
 		scoreText.text = "Score: " + score;
+
+		//se pontuação passou o recorde, atualizar
+		if (score > highScore)
+			gameplayHighScoreText.text = "High Score: " + score;
 	}
 
 	//exibe e ativa o Game Over
