@@ -23,9 +23,9 @@ public class GameController : MonoBehaviour {
 	public float startWait;
 	public float waveWait;
 
-	public GUIText scoreText;
-	public GUIText restartText;
-	public GUIText gameOverText;
+	public Text scoreText;
+	public Text restartText;
+	public Text gameOverText;
 
 	public Text finalScoreText;
 	public Text highScoreText;
