@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour {
 			//apertou a tecla 'R'
 			if (Input.GetKeyDown (KeyCode.R)) {
 				//Application.LoadLevel (Application.loadedLevel); -> removido por ser descontinuado
-				SceneManager.LoadScene("Main"); //recarrega a scene do jogo
+				SceneManager.LoadScene("Game"); //recarrega a scene do jogo
 			}
 		}
 	}
