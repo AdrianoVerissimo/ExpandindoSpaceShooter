@@ -57,9 +57,7 @@ public class GameController : MonoBehaviour {
 		UpdateScore ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
-		StartCoroutine(SpawnWaves ());
-
-
+		//StartCoroutine(SpawnWaves ());
 	}
 
 	//carrega informações de jogos anteriores
