@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour {
 	public int currentLevel = 0;
 	public LevelConfig[] levelConfig;
 
+	public bool pauseWaves = false; //define se pausará a instanciação dos objetos
+
  	private int score;
 	private bool gameOver;
 	private bool restart;
@@ -57,7 +59,7 @@ public class GameController : MonoBehaviour {
 		UpdateScore ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
-		//StartCoroutine(SpawnWaves ());
+		StartCoroutine(SpawnWaves ());
 	}
 
 	//carrega informações de jogos anteriores
@@ -89,6 +91,10 @@ public class GameController : MonoBehaviour {
 
 		//loop para ficar sempre executando
 		while (true) {
+
+			//pausou instanciação
+			while (pauseWaves)
+				yield return null; //espera 1 frame
 
 			int levelObjectsCount = levelConfig[currentLevel].levelObjects.Length;
 
