@@ -62,8 +62,10 @@ public class DestroyByContact : MonoBehaviour {
 		//não tem mais energia
 		if (life <= 0)
 		{
-			//add pontos
-			gameController.AddScore (scoreValue);
+			//add pontos se não foi o jogador que colidiu
+			if (!other.CompareTag ("Player"))
+				gameController.AddScore (scoreValue);
+			
 			Destroy (gameObject);
 
 			if (CompareTag("Boss"))
