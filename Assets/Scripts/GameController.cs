@@ -5,18 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class GameController : MonoBehaviour {
-
-	public GameObject[] hazards; //array com os asteróides passados
-
-	public Vector3 spawnValues;
-	public Vector3 bossSpawnValues;
-
-	public int hazardCount = 1;
-	public float spawnWait;
-	public float startWait;
-	public float waveWait;
-
+public class GameController : MonoBehaviour
+{
 	public Text scoreText;
 	public Text gameplayHighScoreText;
 	public Text restartText;
@@ -84,7 +74,7 @@ public class GameController : MonoBehaviour {
 		//loop para ficar sempre executando
 		while (true)
 		{
-			yield return new WaitForSeconds (startWait); //espera X segundos para começar
+			yield return new WaitForSeconds (levelConfig[currentLevel].levelStartWait); //espera X segundos para começar
 
 			StartCoroutine(levelConfig[currentLevel].SpawnWave());
 
@@ -115,7 +105,7 @@ public class GameController : MonoBehaviour {
 				break;
 			}
 
-			yield return new WaitForSeconds (waveWait); //espera X segundos para começar
+			yield return new WaitForSeconds (levelConfig[currentLevel].levelEndWait); //espera X segundos para começar
 		}
 	}
 

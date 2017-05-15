@@ -46,6 +46,9 @@ public class LevelObject
 [System.Serializable]
 public class LevelConfig
 {
+	public float levelStartWait = 1f;
+	public float levelEndWait = 1f;
+
 	public bool isBoss = false, bossDefeated = false;
 	public LevelObject[] levelObjects;
 
