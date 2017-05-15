@@ -13,7 +13,7 @@ public class LevelObject
 	public float spawnWait = 1f; //tempo entre cada instanciamento
 	public float endWait = 1f; //tempo após acabar
 
-	public Vector3 spawnValues; //armazena os valores da posição para instanciar
+	public Vector3 spawnValues = new Vector3 (0f, 0f, 16f); //armazena os valores da posição para instanciar
 
 	public bool terminou; //indica se os inimigos dessa onda terminaram
 
@@ -32,7 +32,9 @@ public class LevelObject
 		for (int count = 0; count < qtd; count++)
 		{
 			GameObject.Instantiate (spawnObject, spawnPosition, spawnRotation); //instancia o asteróide
-			yield return new WaitForSeconds (spawnWait); //espera X segundos
+
+			if (count + 1 < qtd)
+				yield return new WaitForSeconds (spawnWait); //espera X segundos
 		}
 
 		yield return new WaitForSeconds (endWait); //espera X segundos

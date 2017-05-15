@@ -81,11 +81,11 @@ public class GameController : MonoBehaviour {
 	//cria um asteróide em posição x aleatória e fora da tela
 	IEnumerator SpawnWaves()
 	{
-		yield return new WaitForSeconds (startWait); //espera X segundos para começar
-
 		//loop para ficar sempre executando
 		while (true)
 		{
+			yield return new WaitForSeconds (startWait); //espera X segundos para começar
+
 			StartCoroutine(levelConfig[currentLevel].SpawnWave());
 
 			//pausou instanciação
