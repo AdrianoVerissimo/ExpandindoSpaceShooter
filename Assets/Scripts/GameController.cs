@@ -86,11 +86,11 @@ public class GameController : MonoBehaviour {
 		//loop para ficar sempre executando
 		while (true)
 		{
+			StartCoroutine(levelConfig[currentLevel].SpawnWave());
+
 			//pausou instanciação
 			while (pauseWaves)
 				yield return null; //espera 1 frame
-
-			StartCoroutine(levelConfig[currentLevel].SpawnWave());
 
 			//está em um chefe, o chefe não foi derrotado e não houve Game Over
 			//o código se mantém aqui até o chefe ser derrotado ou o jogador perder
@@ -101,11 +101,11 @@ public class GameController : MonoBehaviour {
 			//sobe um level
 			currentLevel++;
 
-			/*if (currentLevel >= levelConfig.Length)
+			if (currentLevel >= levelConfig.Length)
 			{
 				GameOver (true);
 				currentLevel = levelConfig.Length - 1;
-			}*/
+			}
 
 			//se marcado que houve game over
 			if (gameOver) {
