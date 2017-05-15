@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class LevelConfig
-{
-	public bool isBoss = false, bossDefeated = false;
-	public GameObject[] levelObjects;
-}
 
 public class GameController : MonoBehaviour {
 
@@ -32,7 +26,7 @@ public class GameController : MonoBehaviour {
 	public Text highScoreText;
 
 	public int currentLevel = 0;
-	public LevelConfig[] levelConfig;
+	public LevelConfig[] levelConfig; //array que contém a configuração de cada level/onda
 
 	public bool pauseWaves = false; //define se pausará a instanciação dos objetos
 
@@ -90,34 +84,13 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds (startWait); //espera X segundos para começar
 
 		//loop para ficar sempre executando
-		while (true) {
-
+		while (true)
+		{
 			//pausou instanciação
 			while (pauseWaves)
 				yield return null; //espera 1 frame
 
-			int levelObjectsCount = levelConfig[currentLevel].levelObjects.Length;
-
-			//para x asteróides
-			for (int i = 0; i < levelObjectsCount; i++) {
-
-				//pega uma posição aleatória da array de asteróides
-				//GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-				GameObject hazard = levelConfig[currentLevel].levelObjects[i];
-
-				Vector3 spawnPosition;
-				if (levelConfig [currentLevel].isBoss)
-					spawnPosition = bossSpawnValues;
-				else
-					spawnPosition = new Vector3(Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-
-				//define uma posição de acordo com o que foi passado
-				Quaternion spawnRotation = Quaternion.identity; //sem rotação
-				Instantiate (hazard, spawnPosition, spawnRotation); //instancia o asteróide
-
-				//espera x segundos para instanciar outro asteróide
-				yield return new WaitForSeconds (spawnWait);
-			}
+			StartCoroutine(levelConfig[currentLevel].SpawnWave());
 
 			//está em um chefe, o chefe não foi derrotado e não houve Game Over
 			//o código se mantém aqui até o chefe ser derrotado ou o jogador perder
@@ -128,16 +101,11 @@ public class GameController : MonoBehaviour {
 			//sobe um level
 			currentLevel++;
 
-			if (currentLevel >= levelConfig.Length)
+			/*if (currentLevel >= levelConfig.Length)
 			{
 				GameOver (true);
 				currentLevel = levelConfig.Length - 1;
-			}
-
-			//espera x segundos até começar outra onda de asteróides
-			yield return new WaitForSeconds (waveWait);
-
-
+			}*/
 
 			//se marcado que houve game over
 			if (gameOver) {
@@ -146,6 +114,8 @@ public class GameController : MonoBehaviour {
 
 				break;
 			}
+
+			yield return new WaitForSeconds (waveWait); //espera X segundos para começar
 		}
 	}
 
