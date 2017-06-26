@@ -50,6 +50,9 @@ public class DestroyByContact : MonoBehaviour {
 		if (explosion != null && life == 0)
 		{
 			Instantiate (explosion, transform.position, transform.rotation); //instancia explosão
+
+			//add que 1 inimigo foi destruído
+			gameController.AddEnemiesDestroyed (1);
 		}
 
 		//se quem colidiu foi o jogador

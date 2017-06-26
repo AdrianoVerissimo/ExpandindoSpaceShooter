@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
 	public Text txtHits;
 
 	public Text shootHitText;
+	public Text enemiesDestroyedText;
 	public Text StageScoreText;
 
 	public int currentLevel = 0;
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
 
  	private int score = 0;
 	private int stageScore = 0;
+	private int enemiesScore = 0;
 
 	public int shootCount = 0;
 	public int shootHit = 0;
@@ -50,6 +52,7 @@ public class GameController : MonoBehaviour
 
 		finalScoreText.text = "";
 		shootHitText.text = "";
+		enemiesDestroyedText.text = "";
 		StageScoreText.text = "";
 		highScoreText.text = "";
 
@@ -85,7 +88,7 @@ public class GameController : MonoBehaviour
 		}
 
 		txtTiros.text = enemiesCount.ToString();
-		//txtHits.text = shootHit.ToString();
+		txtHits.text = enemiesDestroyed.ToString();
 	}
 
 	//cria um asteróide em posição x aleatória e fora da tela
@@ -151,6 +154,7 @@ public class GameController : MonoBehaviour
 	public void GameOver(bool venceu = false)
 	{
 		stageScore = getHitScore ();
+		enemiesScore = getEnemiesDestroyedScore ();
 
 		dataController.SubmitHighScore (score); //envia recorde
 
@@ -163,6 +167,7 @@ public class GameController : MonoBehaviour
 
 		finalScoreText.text = "Score: " + score.ToString();
 		shootHitText.text = getShootHitPercent() + "% Precision: " + stageScore;
+		enemiesDestroyedText.text = getEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
 		StageScoreText.text = "Stage Score: " + (score + stageScore);
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
 
@@ -200,7 +205,7 @@ public class GameController : MonoBehaviour
 	 * */
 	public int getHitScore()
 	{
-		float value = getShootHitPercent () * 5;
+		float value = getShootHitPercent () * 10;
 		return Mathf.RoundToInt (value);
 	}
 
@@ -212,5 +217,28 @@ public class GameController : MonoBehaviour
 			value += item.GetEnemiesCount ();
 		}
 		return value;
+	}
+
+	public void AddEnemiesDestroyed(int value)
+	{
+		enemiesDestroyed += value;
+	}
+
+	/**
+	 * Pega o percentual de inimigos destruídos
+	 * */
+	public float getEnemiesDestroyedPercent()
+	{
+		float value = (enemiesDestroyed * 100) / enemiesCount;
+		return value;
+	}
+
+	/**
+	 * Pega a pontuação de acordo com os inimigos destruídos
+	 * */
+	public int getEnemiesDestroyedScore()
+	{
+		float value = getEnemiesDestroyedPercent () * 15;
+		return Mathf.RoundToInt (value);
 	}
 }
