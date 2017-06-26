@@ -78,4 +78,14 @@ public class LevelConfig
 
 		yield return null;
 	}
+
+	public int GetEnemiesCount()
+	{
+		int value = 0;
+		foreach (var item in levelObjects)
+		{
+			value += item.qtd;
+		}
+		return value;
+	}
 }

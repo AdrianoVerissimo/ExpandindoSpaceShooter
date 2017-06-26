@@ -26,11 +26,14 @@ public class GameController : MonoBehaviour
 
 	public bool pauseWaves = false; //define se pausará a instanciação dos objetos
 
- 	private int score;
-	private int stageScore;
+ 	private int score = 0;
+	private int stageScore = 0;
 
 	public int shootCount = 0;
 	public int shootHit = 0;
+
+	public int enemiesCount = 0;
+	public int enemiesDestroyed = 0;
 
 	private bool gameOver;
 	private bool restart;
@@ -52,9 +55,9 @@ public class GameController : MonoBehaviour
 
 		LoadData ();
 
-		score = 0;
-		stageScore = 0;
 		UpdateScore ();
+
+		enemiesCount = GetEnemiesCount ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
 		StartCoroutine(SpawnWaves ());
@@ -81,8 +84,8 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		txtTiros.text = shootCount.ToString();
-		txtHits.text = shootHit.ToString();
+		txtTiros.text = enemiesCount.ToString();
+		//txtHits.text = shootHit.ToString();
 	}
 
 	//cria um asteróide em posição x aleatória e fora da tela
@@ -199,5 +202,15 @@ public class GameController : MonoBehaviour
 	{
 		float value = getShootHitPercent () * 5;
 		return Mathf.RoundToInt (value);
+	}
+
+	public int GetEnemiesCount()
+	{
+		int value = 0;
+		foreach (var item in levelConfig)
+		{
+			value += item.GetEnemiesCount ();
+		}
+		return value;
 	}
 }
