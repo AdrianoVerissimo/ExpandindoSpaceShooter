@@ -18,12 +18,16 @@ public class GameController : MonoBehaviour
 	public Text txtTiros;
 	public Text txtHits;
 
+	public Text shootHitText;
+	public Text StageScoreText;
+
 	public int currentLevel = 0;
 	public LevelConfig[] levelConfig; //array que contém a configuração de cada level/onda
 
 	public bool pauseWaves = false; //define se pausará a instanciação dos objetos
 
  	private int score;
+	private int stageScore;
 
 	public int shootCount = 0;
 	public int shootHit = 0;
@@ -42,11 +46,14 @@ public class GameController : MonoBehaviour
 		gameOverText.text = "";
 
 		finalScoreText.text = "";
+		shootHitText.text = "";
+		StageScoreText.text = "";
 		highScoreText.text = "";
 
 		LoadData ();
 
 		score = 0;
+		stageScore = 0;
 		UpdateScore ();
 
 		//executa uma função em paralelo, sem travar a execução até que ela seja terminada
@@ -70,7 +77,7 @@ public class GameController : MonoBehaviour
 			//apertou a tecla 'R'
 			if (Input.GetKeyDown (KeyCode.R)) {
 				//Application.LoadLevel (Application.loadedLevel); -> removido por ser descontinuado
-				SceneManager.LoadScene("Game"); //recarrega a scene do jogo
+				SceneManager.LoadScene("Fase1"); //recarrega a scene do jogo
 			}
 		}
 
@@ -140,6 +147,8 @@ public class GameController : MonoBehaviour
 	//exibe e ativa o Game Over
 	public void GameOver(bool venceu = false)
 	{
+		stageScore = getHitScore ();
+
 		dataController.SubmitHighScore (score); //envia recorde
 
 		if (!venceu)
@@ -150,6 +159,8 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 
 		finalScoreText.text = "Score: " + score.ToString();
+		shootHitText.text = getShootHitPercent() + "% Precision: " + stageScore;
+		StageScoreText.text = "Stage Score: " + (score + stageScore);
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
 
 	}
@@ -184,10 +195,9 @@ public class GameController : MonoBehaviour
 	/**
 	 * Pega a pontuação final do estágio
 	 * */
-	public int getStageScore()
+	public int getHitScore()
 	{
-		float value = getShootHitPercent () * 2;
-		score += Mathf.RoundToInt (value);
-		return score;
+		float value = getShootHitPercent () * 5;
+		return Mathf.RoundToInt (value);
 	}
 }
