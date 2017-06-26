@@ -53,10 +53,11 @@ public class DestroyByContact : MonoBehaviour {
 		}
 
 		//se quem colidiu foi o jogador
-		if (other.CompareTag ("Player"))
-		{
+		if (other.CompareTag ("Player")) {
 			Instantiate (playerExplosion, other.transform.position, other.transform.rotation); //instancia explosão do jogador
-			gameController.GameOver(false); //ativa o Game Over
+			gameController.GameOver (false); //ativa o Game Over
+		} else {
+			gameController.addShootHit (1);
 		}
 
 		//não tem mais energia

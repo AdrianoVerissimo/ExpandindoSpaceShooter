@@ -15,12 +15,19 @@ public class GameController : MonoBehaviour
 	public Text finalScoreText;
 	public Text highScoreText;
 
+	public Text txtTiros;
+	public Text txtHits;
+
 	public int currentLevel = 0;
 	public LevelConfig[] levelConfig; //array que contém a configuração de cada level/onda
 
 	public bool pauseWaves = false; //define se pausará a instanciação dos objetos
 
  	private int score;
+
+	public int shootCount = 0;
+	public int shootHit = 0;
+
 	private bool gameOver;
 	private bool restart;
 
@@ -66,6 +73,9 @@ public class GameController : MonoBehaviour
 				SceneManager.LoadScene("Game"); //recarrega a scene do jogo
 			}
 		}
+
+		txtTiros.text = shootCount.ToString();
+		txtHits.text = shootHit.ToString();
 	}
 
 	//cria um asteróide em posição x aleatória e fora da tela
@@ -150,5 +160,34 @@ public class GameController : MonoBehaviour
 			return;
 		
 		levelConfig [currentLevel].bossDefeated = defeat;
+	}
+
+	public void addShootCount(int value)
+	{
+		shootCount += value;
+	}
+
+	public void addShootHit(int value)
+	{
+		shootHit += value;
+	}
+
+	/**
+	 * Pega o percentual de tiros acertados
+	 * */
+	public float getShootHitPercent()
+	{
+		float value = (shootHit * 100) / shootCount;
+		return value;
+	}
+
+	/**
+	 * Pega a pontuação final do estágio
+	 * */
+	public int getStageScore()
+	{
+		float value = getShootHitPercent () * 2;
+		score += Mathf.RoundToInt (value);
+		return score;
 	}
 }

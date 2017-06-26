@@ -20,6 +20,13 @@ public class PlayerController : MonoBehaviour {
 	public Transform[] shotSpawns;
 	public int qtdTiro = 1;
 
+	private GameController gameController;
+
+	void Awake()
+	{
+		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController> ();
+	}
+
 	void Update()
 	{
 		//se apertou botão e já passou tempo suficiente para atirar
@@ -31,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 				Transform shotSpawn = shotSpawns [contador];
 				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
 			}
+			gameController.addShootCount (1);
 		}
 	}
 
