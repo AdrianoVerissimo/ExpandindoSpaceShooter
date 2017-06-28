@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
 
  	private int score = 0;
 	private int stageScore = 0;
+	private int hitScore = 0;
 	private int enemiesScore = 0;
 
 	public int shootCount = 0;
@@ -153,10 +154,11 @@ public class GameController : MonoBehaviour
 	//exibe e ativa o Game Over
 	public void GameOver(bool venceu = false)
 	{
-		stageScore = getHitScore ();
+		hitScore = getHitScore ();
 		enemiesScore = getEnemiesDestroyedScore ();
+		stageScore = score + hitScore + enemiesScore;
 
-		dataController.SubmitHighScore (score); //envia recorde
+		dataController.SubmitHighScore (stageScore); //envia recorde
 
 		if (!venceu)
 			gameOverText.text = "Game Over!";
@@ -166,11 +168,10 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 
 		finalScoreText.text = "Score: " + score.ToString();
-		shootHitText.text = getShootHitPercent() + "% Precision: " + stageScore;
+		shootHitText.text = getShootHitPercent() + "% Precision: " + hitScore;
 		enemiesDestroyedText.text = getEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
-		StageScoreText.text = "Stage Score: " + (score + stageScore);
+		StageScoreText.text = "Stage Score: " + stageScore;
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
-
 	}
 
 	public void DefeatedBoss(bool defeat)
