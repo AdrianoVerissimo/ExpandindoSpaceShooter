@@ -37,8 +37,8 @@ public class DestroyByContact : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		//se colidir com boundary, abortar script
-		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Boss"))
+		//abandonar execução do script caso colida com algo que não deve colidir
+		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Enemy Shot") || other.CompareTag("Boss"))
 			return;
 
 		//diminui energia
@@ -51,15 +51,20 @@ public class DestroyByContact : MonoBehaviour {
 		{
 			Instantiate (explosion, transform.position, transform.rotation); //instancia explosão
 
-			//add que 1 inimigo foi destruído
-			gameController.AddEnemiesDestroyed (1);
+			//se o objeto deste script não é um tiro de inimigo
+			if (!gameObject.CompareTag("Enemy Shot"))
+			{
+				//add que 1 inimigo foi destruído
+				gameController.AddEnemiesDestroyed (1);
+			}
 		}
 
 		//se quem colidiu foi o jogador
 		if (other.CompareTag ("Player")) {
 			Instantiate (playerExplosion, other.transform.position, other.transform.rotation); //instancia explosão do jogador
 			gameController.GameOver (false); //ativa o Game Over
-		} else {
+		} else if (!gameObject.CompareTag("Shot")) //se o objeto deste script não é um tiro de inimigo
+		{
 			gameController.addShootHit (1);
 		}
 
