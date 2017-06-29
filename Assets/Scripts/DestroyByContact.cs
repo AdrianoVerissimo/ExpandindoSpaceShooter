@@ -63,7 +63,7 @@ public class DestroyByContact : MonoBehaviour {
 		if (other.CompareTag ("Player")) {
 			Instantiate (playerExplosion, other.transform.position, other.transform.rotation); //instancia explosão do jogador
 			gameController.GameOver (false); //ativa o Game Over
-		} else if (!gameObject.CompareTag("Shot")) //se o objeto deste script não é um tiro de inimigo
+		} else if (!gameObject.CompareTag("Enemy Shot")) //se o objeto deste script não é um tiro de inimigo
 		{
 			gameController.addShootHit (1);
 		}
