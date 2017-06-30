@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour
 
 		LoadData ();
 
-		UpdateScore ();
+		UpdateScore (score);
 
 		enemiesCount = GetEnemiesCount ();
 
@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
 	void LoadData()
 	{
 		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
+		dataController.SetHighScore (0);
 		dataController.LoadPlayerProgress ();
 
 		gameplayHighScoreText.text = "High Score: " + dataController.GetLocalHighScore ();
@@ -137,18 +138,18 @@ public class GameController : MonoBehaviour
 	public void AddScore(int newScoreValue)
 	{
 		score += newScoreValue;
-		UpdateScore ();
+		UpdateScore (score);
 	}
 
 	//atualiza texto da pontuação
-	void UpdateScore()
+	void UpdateScore(int value)
 	{
 		int highScore = dataController.GetLocalHighScore ();
-		scoreText.text = "Score: " + score;
+		scoreText.text = "Score: " + value;
 
 		//se pontuação passou o recorde, atualizar
-		if (score > highScore)
-			gameplayHighScoreText.text = "High Score: " + score;
+		if (value > highScore)
+			gameplayHighScoreText.text = "High Score: " + value;
 	}
 
 	//exibe e ativa o Game Over
@@ -158,6 +159,7 @@ public class GameController : MonoBehaviour
 		enemiesScore = getEnemiesDestroyedScore ();
 		stageScore = score + hitScore + enemiesScore;
 
+		UpdateScore (stageScore);
 		dataController.SubmitHighScore (stageScore); //envia recorde
 
 		if (!venceu)
