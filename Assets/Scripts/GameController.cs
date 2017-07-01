@@ -199,6 +199,9 @@ public class GameController : MonoBehaviour
 	 * */
 	public float getShootHitPercent()
 	{
+		if (shootHit == 0)
+			return 0;
+		
 		float value = (shootHit * 100) / shootCount;
 		return value;
 	}
@@ -209,6 +212,9 @@ public class GameController : MonoBehaviour
 	public int getHitScore()
 	{
 		float value = getShootHitPercent () * 10;
+		if (value == 0)
+			return 0;
+		
 		return Mathf.RoundToInt (value);
 	}
 
@@ -232,6 +238,9 @@ public class GameController : MonoBehaviour
 	 * */
 	public float getEnemiesDestroyedPercent()
 	{
+		if (enemiesDestroyed == 0)
+			return 0;
+		
 		float value = (enemiesDestroyed * 100) / enemiesCount;
 		return value;
 	}
@@ -242,6 +251,9 @@ public class GameController : MonoBehaviour
 	public int getEnemiesDestroyedScore()
 	{
 		float value = getEnemiesDestroyedPercent () * 15;
+		if (value == 0)
+			return 0;
+		
 		return Mathf.RoundToInt (value);
 	}
 }
