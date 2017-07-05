@@ -10,6 +10,10 @@ public class MainMenuController : MonoBehaviour {
 
 	private int highScore;
 
+	void Awake()
+	{
+		Screen.SetResolution (600, 900, false);
+	}
 
 	// Use this for initialization
 	void Start () {
