@@ -71,7 +71,6 @@ public class GameController : MonoBehaviour
 	void LoadData()
 	{
 		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
-		dataController.SetHighScore (0);
 		dataController.LoadPlayerProgress ();
 
 		gameplayHighScoreText.text = "High Score: " + dataController.GetLocalHighScore ();
@@ -155,8 +154,8 @@ public class GameController : MonoBehaviour
 	//exibe e ativa o Game Over
 	public void GameOver(bool venceu = false)
 	{
-		hitScore = getHitScore ();
-		enemiesScore = getEnemiesDestroyedScore ();
+		hitScore = GetHitScore ();
+		enemiesScore = GetEnemiesDestroyedScore ();
 		stageScore = score + hitScore + enemiesScore;
 
 		UpdateScore (stageScore);
@@ -170,8 +169,8 @@ public class GameController : MonoBehaviour
 		gameOver = true;
 
 		finalScoreText.text = "Score: " + score.ToString();
-		shootHitText.text = getShootHitPercent() + "% Precision: " + hitScore;
-		enemiesDestroyedText.text = getEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
+		shootHitText.text = GetShootHitPercent() + "% Precision: " + hitScore;
+		enemiesDestroyedText.text = GetEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
 		StageScoreText.text = "Stage Score: " + stageScore;
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
 	}
@@ -184,12 +183,12 @@ public class GameController : MonoBehaviour
 		levelConfig [currentLevel].bossDefeated = defeat;
 	}
 
-	public void addShootCount(int value)
+	public void AddShootCount(int value)
 	{
 		shootCount += value;
 	}
 
-	public void addShootHit(int value)
+	public void AddShootHit(int value)
 	{
 		shootHit += value;
 	}
@@ -197,7 +196,7 @@ public class GameController : MonoBehaviour
 	/**
 	 * Pega o percentual de tiros acertados
 	 * */
-	public float getShootHitPercent()
+	public float GetShootHitPercent()
 	{
 		if (shootHit == 0)
 			return 0;
@@ -209,9 +208,9 @@ public class GameController : MonoBehaviour
 	/**
 	 * Pega a pontuação final do estágio
 	 * */
-	public int getHitScore()
+	public int GetHitScore()
 	{
-		float value = getShootHitPercent () * 10;
+		float value = GetShootHitPercent () * 10;
 		if (value == 0)
 			return 0;
 		
@@ -236,7 +235,7 @@ public class GameController : MonoBehaviour
 	/**
 	 * Pega o percentual de inimigos destruídos
 	 * */
-	public float getEnemiesDestroyedPercent()
+	public float GetEnemiesDestroyedPercent()
 	{
 		if (enemiesDestroyed == 0)
 			return 0;
@@ -248,9 +247,9 @@ public class GameController : MonoBehaviour
 	/**
 	 * Pega a pontuação de acordo com os inimigos destruídos
 	 * */
-	public int getEnemiesDestroyedScore()
+	public int GetEnemiesDestroyedScore()
 	{
-		float value = getEnemiesDestroyedPercent () * 15;
+		float value = GetEnemiesDestroyedPercent () * 15;
 		if (value == 0)
 			return 0;
 		

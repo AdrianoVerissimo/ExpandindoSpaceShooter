@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
 				Transform shotSpawn = shotSpawns [contador];
 				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
 			}
-			gameController.addShootCount (1);
+			gameController.AddShootCount (1);
 		}
 	}
 

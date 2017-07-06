@@ -65,7 +65,7 @@ public class DestroyByContact : MonoBehaviour {
 			gameController.GameOver (false); //ativa o Game Over
 		} else if (!gameObject.CompareTag("Enemy Shot")) //se o objeto deste script não é um tiro de inimigo
 		{
-			gameController.addShootHit (1);
+			gameController.AddShootHit (1);
 		}
 
 		//não tem mais energia

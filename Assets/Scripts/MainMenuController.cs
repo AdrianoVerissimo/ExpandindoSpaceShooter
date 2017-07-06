@@ -10,11 +10,6 @@ public class MainMenuController : MonoBehaviour {
 
 	private int highScore;
 
-	void Awake()
-	{
-		//Screen.SetResolution (600, 900, false);
-	}
-
 	// Use this for initialization
 	void Start () {
 
@@ -23,10 +18,5 @@ public class MainMenuController : MonoBehaviour {
 		highScore = dataController.GetHighScore ();
 
 		highScoreLabel.text = "Recorde: " + highScore.ToString();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }
