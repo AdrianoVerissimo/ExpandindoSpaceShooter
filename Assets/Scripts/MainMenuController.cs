@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour {
 
 	void Awake()
 	{
-		Screen.SetResolution (600, 900, false);
+		//Screen.SetResolution (600, 900, false);
 	}
 
 	// Use this for initialization
