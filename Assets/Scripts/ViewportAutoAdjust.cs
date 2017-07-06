@@ -5,14 +5,33 @@ using UnityEngine;
 //script utilizado para calcular e estabelecer um determinado viewport independente da resolução que foi selecionada
 public class ViewportAutoAdjust : MonoBehaviour {
 
-	public float gameWidth; //largura da tela do jogo
-	public float gameHeight; //altura da tela do jogo
+	public float gameWidth; //largura desejada para o viewport
+	public float gameHeight; //altura desejada para o viewport
+
+	private int screenWidth; //largura da tela do jogo
+	private int screenHeight; //altura da tela do jogo
 
 	void Start () 
 	{
+		screenWidth = Screen.width;
+		screenHeight = Screen.height;
+
 		SetViewPort ();
 	}
 
+	void Update()
+	{
+		//se as dimensões da tela do jogo foram alteradas, atualizar viewport
+		if (screenWidth != Screen.width || screenHeight != Screen.height)
+		{
+			screenWidth = Screen.width;
+			screenHeight = Screen.height;
+			SetViewPort ();
+			Debug.Log("Alterando viewport a partir de: " + screenWidth.ToString() + "x" + screenHeight.ToString());
+		}
+	}
+
+	//define o viewport baseando-se na largura e altura definidas
 	public void SetViewPort()
 	{
 		// set the desired aspect ratio (the values in this example are
@@ -21,7 +40,7 @@ public class ViewportAutoAdjust : MonoBehaviour {
 		float targetaspect = gameWidth / gameHeight;
 
 		// determine the game window's current aspect ratio
-		float windowaspect = (float)Screen.width / (float)Screen.height;
+		float windowaspect = (float)screenWidth / (float)screenHeight;
 
 		// current viewport height should be scaled by this amount
 		float scaleheight = windowaspect / targetaspect;
