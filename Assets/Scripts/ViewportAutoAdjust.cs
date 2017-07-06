@@ -27,7 +27,6 @@ public class ViewportAutoAdjust : MonoBehaviour {
 			screenWidth = Screen.width;
 			screenHeight = Screen.height;
 			SetViewPort ();
-			Debug.Log("Alterando viewport a partir de: " + screenWidth.ToString() + "x" + screenHeight.ToString());
 		}
 	}
 
