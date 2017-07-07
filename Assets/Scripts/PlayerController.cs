@@ -21,14 +21,19 @@ public class PlayerController : MonoBehaviour {
 	public int qtdTiro = 1;
 
 	private GameController gameController;
+	private PauseController pauseController;
 
 	void Awake()
 	{
 		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController> ();
+		pauseController = GameObject.FindGameObjectWithTag("PauseController").GetComponent<PauseController> ();
 	}
 
 	void Update()
 	{
+		if (pauseController.GetPaused ())
+			return;
+
 		//se apertou botão e já passou tempo suficiente para atirar
 		if (Input.GetButton ("Fire1") && Time.time >= nextFire) {
 			GetComponent<AudioSource> ().Play ();
@@ -44,6 +49,9 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+		if (pauseController.GetPaused ())
+			return;
+		
 		float moveHorizontal = Input.GetAxis ("Horizontal"); //input horizontal
 		float moveVertical = Input.GetAxis ("Vertical"); //input vertical
 
@@ -69,6 +77,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void UpgradeShot(int qtd)
 	{
+		if (pauseController.GetPaused ())
+			return;
+		
 		qtdTiro += qtd;
 		if (qtdTiro > shotSpawns.Length)
 		{
