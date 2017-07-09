@@ -173,6 +173,9 @@ public class GameController : MonoBehaviour
 		enemiesDestroyedText.text = GetEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
 		StageScoreText.text = "Stage Score: " + stageScore;
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
+
+		//destrói a controladora do pause
+		DestroyPauseController ();
 	}
 
 	public void DefeatedBoss(bool defeat)
@@ -254,5 +257,15 @@ public class GameController : MonoBehaviour
 			return 0;
 		
 		return Mathf.RoundToInt (value);
+	}
+
+	/**
+	 * Destrói a controladora do pause
+	 * */ 
+	public void DestroyPauseController()
+	{
+		GameObject objPause = GameObject.FindGameObjectWithTag ("PauseController");
+		if (objPause)
+			Destroy (objPause);
 	}
 }
