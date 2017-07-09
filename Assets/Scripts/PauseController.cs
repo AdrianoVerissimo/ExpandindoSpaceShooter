@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseController : MonoBehaviour
 {
-	public Canvas canvasPause;
+	public Canvas canvasPause = null;
 
 	private bool paused = false;
 
@@ -30,12 +30,18 @@ public class PauseController : MonoBehaviour
 		if (paused)
 		{
 			Time.timeScale = 0;
-			canvasPause.gameObject.SetActive (true);
+
+			//exibe o pause caso tenha sido atribuído um canvas para menu de pause
+			if (canvasPause != null)
+				canvasPause.gameObject.SetActive (true);
 		}
 		else
 		{
 			Time.timeScale = 1;
-			canvasPause.gameObject.SetActive (false);
+
+			//esconde o pause caso tenha sido atribuído um canvas para menu de pause
+			if (canvasPause != null)
+				canvasPause.gameObject.SetActive (false);
 		}
 	}
 
