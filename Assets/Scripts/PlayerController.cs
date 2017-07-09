@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		//não continuar caso pausado
 		if (pauseController.IsPaused ())
 			return;
 
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+		//não continuar caso pausado
 		if (pauseController.IsPaused ())
 			return;
 		
@@ -77,6 +79,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void UpgradeShot(int qtd)
 	{
+		//não continuar caso pausado
 		if (pauseController.IsPaused ())
 			return;
 		

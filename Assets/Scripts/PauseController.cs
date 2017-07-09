@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PauseController : MonoBehaviour
 {
-	public Canvas canvasPause = null;
+	public Canvas canvasPause = null; //canvas para o menu de pausa
 
-	private bool paused = false;
+	private bool paused = false; //indica se o jogo foi pausado
 
-	
-	// Update is called once per frame
 	void Update ()
 	{
 		if (Input.GetKeyDown (KeyCode.P))
@@ -18,11 +16,13 @@ public class PauseController : MonoBehaviour
 		}
 	}
 
+	//despausa o jogo
 	public void Unpause()
 	{
 		Pause (false);
 	}
 
+	//pausa ou despausa o jogo dependendo do que for passado
 	public void Pause(bool value = true)
 	{
 		paused = value;
@@ -45,6 +45,7 @@ public class PauseController : MonoBehaviour
 		}
 	}
 
+	//verifica se o jogo está pausado
 	public bool IsPaused()
 	{
 		if (Time.timeScale == 0)
