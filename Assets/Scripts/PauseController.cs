@@ -5,12 +5,13 @@ using UnityEngine;
 public class PauseController : MonoBehaviour
 {
 	public Canvas canvasPause = null; //canvas para o menu de pausa
+	public bool enablePauseButton = true;
 
 	private bool paused = false; //indica se o jogo foi pausado
 
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.P))
+		if (enablePauseButton && Input.GetKeyDown (KeyCode.P))
 		{
 			Pause (!paused);
 		}
