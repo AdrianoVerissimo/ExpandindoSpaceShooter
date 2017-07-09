@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour {
 
 	private int highScore;
 
+	private PauseController pauseController;
+
 	// Use this for initialization
 	void Start () {
 
@@ -18,5 +20,11 @@ public class MainMenuController : MonoBehaviour {
 		highScore = dataController.GetHighScore ();
 
 		highScoreLabel.text = "Recorde: " + highScore.ToString();
+
+		GameObject objPause = GameObject.FindGameObjectWithTag ("PauseController");
+		pauseController = objPause.GetComponent<PauseController> ();
+
+		if (pauseController.IsPaused ())
+			pauseController.Unpause ();
 	}
 }

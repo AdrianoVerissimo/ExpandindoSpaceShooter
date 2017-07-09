@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
-		if (pauseController.GetPaused ())
+		if (pauseController.IsPaused ())
 			return;
 
 		//se apertou botão e já passou tempo suficiente para atirar
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (pauseController.GetPaused ())
+		if (pauseController.IsPaused ())
 			return;
 		
 		float moveHorizontal = Input.GetAxis ("Horizontal"); //input horizontal
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void UpgradeShot(int qtd)
 	{
-		if (pauseController.GetPaused ())
+		if (pauseController.IsPaused ())
 			return;
 		
 		qtdTiro += qtd;

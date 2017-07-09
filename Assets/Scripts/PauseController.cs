@@ -39,8 +39,11 @@ public class PauseController : MonoBehaviour
 		}
 	}
 
-	public bool GetPaused()
+	public bool IsPaused()
 	{
+		if (Time.timeScale == 0)
+			return true;
+		
 		return paused;
 	}
 }
