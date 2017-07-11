@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour
 	public int enemiesCount = 0;
 	public int enemiesDestroyed = 0;
 
+	public Canvas canvasGameOver;
+
 	private bool gameOver;
 	private bool restart;
 
@@ -173,6 +175,10 @@ public class GameController : MonoBehaviour
 		enemiesDestroyedText.text = GetEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
 		StageScoreText.text = "Stage Score: " + stageScore;
 		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
+
+		//exibe menu de Game Over caso tenha sido atribuído
+		if (canvasGameOver.gameObject)
+			canvasGameOver.gameObject.SetActive (true);
 
 		//destrói a controladora do pause
 		DestroyPauseController ();
