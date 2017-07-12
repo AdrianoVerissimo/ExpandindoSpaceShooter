@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
 	private bool restart;
 
 	private DataController dataController;
+	private PlayerController playerController;
 
 	void Start()
 	{
@@ -58,6 +59,21 @@ public class GameController : MonoBehaviour
 		enemiesDestroyedText.text = "";
 		StageScoreText.text = "";
 		highScoreText.text = "";
+
+		try
+		{
+			GameObject objPlayer = GameObject.FindGameObjectWithTag ("Player");
+			if (!objPlayer)
+				throw new UnityException("Objeto Player não encontrado. Encerrando execução de script.");
+			playerController = objPlayer.GetComponent<PlayerController>();
+			if (!playerController)
+				throw new UnityException("Player Controller não encontrado. Encerrando execução de script.");
+		}
+		catch (System.Exception ex)
+		{
+			Debug.Log (ex.Message);
+			return;
+		}
 
 		LoadData ();
 
@@ -179,6 +195,8 @@ public class GameController : MonoBehaviour
 		//exibe menu de Game Over caso tenha sido atribuído
 		if (canvasGameOver.gameObject)
 			canvasGameOver.gameObject.SetActive (true);
+
+		playerController.SetCanMove (false);
 
 		//destrói a controladora do pause
 		DestroyPauseController ();
