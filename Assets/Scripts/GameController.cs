@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
 {
 	public Text scoreText;
 	public Text gameplayHighScoreText;
-	public Text restartText;
 	public Text gameOverText;
 
 	public Text finalScoreText;
@@ -41,7 +40,6 @@ public class GameController : MonoBehaviour
 	public Canvas canvasGameOver;
 
 	private bool gameOver;
-	private bool restart;
 
 	private DataController dataController;
 	private PlayerController playerController;
@@ -49,9 +47,7 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		gameOver = false;
-		restart = false;
 
-		restartText.text = "";
 		gameOverText.text = "";
 
 		finalScoreText.text = "";
@@ -97,17 +93,8 @@ public class GameController : MonoBehaviour
 	//em cada frame
 	void Update()
 	{
-		//marcou para reiniciar o jogo
-		if (restart) {
-			//apertou a tecla 'R'
-			if (Input.GetKeyDown (KeyCode.R)) {
-				//Application.LoadLevel (Application.loadedLevel); -> removido por ser descontinuado
-				SceneManager.LoadScene("Fase1"); //recarrega a scene do jogo
-			}
-		}
-
-		txtTiros.text = enemiesCount.ToString();
-		txtHits.text = enemiesDestroyed.ToString();
+		/*txtTiros.text = enemiesCount.ToString();
+		txtHits.text = enemiesDestroyed.ToString();*/
 	}
 
 	//cria um asteróide em posição x aleatória e fora da tela
@@ -140,12 +127,8 @@ public class GameController : MonoBehaviour
 			}
 
 			//se marcado que houve game over
-			if (gameOver) {
-				restartText.text = "Pressione 'R' para reiniciar o jogo."; //exibe texto para reiniciar o jogo
-				restart = true; //marca que ocorrerá o reinício do jogo
-
-				break;
-			}
+			if (gameOver)
+				break; //encerrar loop de spawns
 
 			yield return new WaitForSeconds (levelConfig[currentLevel].levelEndWait); //espera X segundos para começar
 		}
