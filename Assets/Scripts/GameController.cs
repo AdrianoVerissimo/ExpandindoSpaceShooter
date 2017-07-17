@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
 		dataController = GameObject.FindGameObjectWithTag ("DataController").GetComponent<DataController>();
 		dataController.LoadPlayerProgress ();
 
-		gameplayHighScoreText.text = "High Score: " + dataController.GetLocalHighScore ();
+		gameplayHighScoreText.text = "Recorde: " + dataController.GetLocalHighScore ();
 	}
 
 	//em cada frame
@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour
 
 		//se pontuação passou o recorde, atualizar
 		if (value > highScore)
-			gameplayHighScoreText.text = "High Score: " + value;
+			gameplayHighScoreText.text = "Recorde: " + value;
 	}
 
 	//exibe e ativa o Game Over
@@ -165,15 +165,15 @@ public class GameController : MonoBehaviour
 		if (!venceu)
 			gameOverText.text = "Game Over!";
 		else
-			gameOverText.text = "You Win!";
+			gameOverText.text = "Você Venceu!";
 		
 		gameOver = true;
 
-		finalScoreText.text = "Score: " + score.ToString();
-		shootHitText.text = GetShootHitPercent() + "% Precision: " + hitScore;
-		enemiesDestroyedText.text = GetEnemiesDestroyedPercent() + "% Enemies Destroyed: " + enemiesScore;
-		StageScoreText.text = "Stage Score: " + stageScore;
-		highScoreText.text = "High Score: " + dataController.GetLocalHighScore().ToString();
+		finalScoreText.text = "Pontos: " + score.ToString();
+		shootHitText.text = GetShootHitPercent() + "% Precisao: " + hitScore;
+		enemiesDestroyedText.text = GetEnemiesDestroyedPercent() + "% Inimigos Destruidos: " + enemiesScore;
+		StageScoreText.text = "Pontos Finais: " + stageScore;
+		highScoreText.text = "Recorde: " + dataController.GetLocalHighScore().ToString();
 
 		//exibe menu de Game Over caso tenha sido atribuído
 		if (canvasGameOver.gameObject)
