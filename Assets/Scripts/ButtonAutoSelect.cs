@@ -12,11 +12,14 @@ public class ButtonAutoSelect : MonoBehaviour {
 	void Start () {
 		button = GetComponent<Button> ();
 
-		button.Select ();
+		DoSelect ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	public void DoSelect()
+	{
+		if (button == null)
+			return;
+
+		button.Select ();
 	}
 }
