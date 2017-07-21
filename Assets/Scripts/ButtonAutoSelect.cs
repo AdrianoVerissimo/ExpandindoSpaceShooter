@@ -11,7 +11,7 @@ public class ButtonAutoSelect : MonoBehaviour {
 	private Button button;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		button = GetComponent<Button> ();
 
 		DoSelect ();
