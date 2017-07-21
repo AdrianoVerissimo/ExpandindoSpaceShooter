@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class ButtonAutoSelect : MonoBehaviour {
 
+	public bool activateOnEnable = false;
+
 	private Button button;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		button = GetComponent<Button> ();
 
 		DoSelect ();
@@ -21,5 +23,13 @@ public class ButtonAutoSelect : MonoBehaviour {
 			return;
 
 		button.Select ();
+	}
+
+	void OnEnable()
+	{
+		if (!activateOnEnable)
+			return;
+
+		DoSelect ();
 	}
 }

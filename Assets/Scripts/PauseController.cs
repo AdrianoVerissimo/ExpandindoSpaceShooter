@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class PauseController : MonoBehaviour
 {
 	public Canvas canvasPause = null; //canvas para o menu de pausa
+	public Button firstButton;
 	public bool enablePauseButton = true;
 
 	private bool paused = false; //indica se o jogo foi pausado
@@ -34,7 +37,9 @@ public class PauseController : MonoBehaviour
 
 			//exibe o pause caso tenha sido atribuído um canvas para menu de pause
 			if (canvasPause != null)
+			{
 				canvasPause.gameObject.SetActive (true);
+			}
 		}
 		else
 		{
