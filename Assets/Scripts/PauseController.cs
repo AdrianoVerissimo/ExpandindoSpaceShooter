@@ -14,7 +14,7 @@ public class PauseController : MonoBehaviour
 
 	void Update ()
 	{
-		if (enablePauseButton && Input.GetKeyDown (KeyCode.P))
+		if (enablePauseButton && (Input.GetKeyDown (KeyCode.P) || Input.GetKeyDown("joystick button 7") ) )
 		{
 			Pause (!paused);
 		}
