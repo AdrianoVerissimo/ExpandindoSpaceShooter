@@ -51,8 +51,8 @@ public class DestroyByContact : MonoBehaviour {
 		{
 			Instantiate (explosion, transform.position, transform.rotation); //instancia explosão
 
-			//se o objeto deste script não é um tiro de inimigo
-			if (!gameObject.CompareTag("Enemy Shot"))
+			//se o objeto deste script não é um tiro de inimigo e o objeto que colidiu não é o jogador
+			if (!gameObject.CompareTag("Enemy Shot") && !other.CompareTag ("Player"))
 			{
 				//add que 1 inimigo foi destruído
 				gameController.AddEnemiesDestroyed (1);
