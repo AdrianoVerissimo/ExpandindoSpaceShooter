@@ -119,11 +119,13 @@ public class GameController : MonoBehaviour
 
 			//sobe um level
 			currentLevel++;
-
 			if (currentLevel >= levelConfig.Length)
 			{
-				GameOver (true);
 				currentLevel = levelConfig.Length - 1;
+
+				//se está em um chefe e ele foi vencido
+				if (levelConfig[currentLevel].isBoss && levelConfig[currentLevel].bossDefeated)
+					GameOver (true); //mostrar que venceu a fase
 			}
 
 			//se marcado que houve game over
@@ -162,10 +164,10 @@ public class GameController : MonoBehaviour
 		UpdateScore (stageScore);
 		dataController.SubmitHighScore (stageScore); //envia recorde
 
-		if (!venceu)
-			gameOverText.text = "Game Over!";
-		else
+		if (venceu)
 			gameOverText.text = "Você Venceu!";
+		else
+			gameOverText.text = "Game Over!";			
 		
 		gameOver = true;
 
