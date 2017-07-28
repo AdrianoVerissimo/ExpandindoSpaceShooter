@@ -16,7 +16,21 @@ public class PauseController : MonoBehaviour
 
 	void Awake()
 	{
-		playerController = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
+		GameObject objPlayer = GameObject.FindGameObjectWithTag ("Player");
+		try
+		{
+			if (objPlayer == null)
+				throw new UnityException("Objeto player não encontrado em PauseController.");
+
+			playerController = objPlayer.GetComponent<PlayerController> ();
+
+			if(playerController == null)
+					throw new UnityException("Script PlayerController.cs não encontrado em PauseController.");
+		}
+		catch (System.Exception ex)
+		{
+			Debug.Log(ex.Message);
+		}
 	}
 
 	void Update ()
