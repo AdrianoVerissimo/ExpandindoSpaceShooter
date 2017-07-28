@@ -275,4 +275,10 @@ public class GameController : MonoBehaviour
 		if (objPause)
 			Destroy (objPause);
 	}
+
+	//retorna se o jogo acabou
+	public bool IsGameOver()
+	{
+		return gameOver;
+	}
 }

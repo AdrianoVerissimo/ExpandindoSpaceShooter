@@ -37,6 +37,10 @@ public class DestroyByContact : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
+		//abandona execução do script no Game Over
+		if (gameController.IsGameOver ())
+			return;
+
 		//abandonar execução do script caso colida com algo que não deve colidir
 		if (other.CompareTag ("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Enemy Shot") || other.CompareTag("Boss"))
 			return;
