@@ -37,17 +37,8 @@ public class PlayerController : MonoBehaviour {
 		if (pauseController.IsPaused () || !canMove)
 			return;
 
-		//se apertou botão e já passou tempo suficiente para atirar
-		if (Input.GetButton ("Fire1") && Time.time >= nextFire) {
-			GetComponent<AudioSource> ().Play ();
-			nextFire = Time.time + fireRate; //atualiza tempo necessário para atirar
-			for ( int contador = 0; contador < qtdTiro; contador++ )
-			{
-				Transform shotSpawn = shotSpawns [contador];
-				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
-			}
-			gameController.AddShootCount (1);
-		}
+		//atirar os laseres da nave
+		Shoot ();
 	}
 
 	void FixedUpdate()
@@ -122,5 +113,30 @@ public class PlayerController : MonoBehaviour {
 	public void SetCanMove(bool value)
 	{
 		canMove = value;
+	}
+
+	//responsável por atirar todos os laseres definidos para a nave
+	public void Shoot()
+	{
+		//se apertou botão e já passou tempo suficiente para atirar
+		if (Input.GetButton ("Fire1") && Time.time >= nextFire)
+		{
+			GetComponent<AudioSource> ().Play ();
+
+			UpdateNextFireTime (fireRate);
+
+			for ( int contador = 0; contador < qtdTiro; contador++ )
+			{
+				Transform shotSpawn = shotSpawns [contador];
+				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //instancia o tiro
+			}
+			gameController.AddShootCount (1);
+		}
+	}
+
+	//atualiza o próximo momento em que a nave poderá atirar
+	public void UpdateNextFireTime(float value)
+	{
+		nextFire = Time.time + value; //atualiza tempo necessário para atirar
 	}
 }

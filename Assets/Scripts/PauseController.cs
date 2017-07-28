@@ -12,6 +12,13 @@ public class PauseController : MonoBehaviour
 
 	private bool paused = false; //indica se o jogo foi pausado
 
+	private PlayerController playerController;
+
+	void Awake()
+	{
+		playerController = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
+	}
+
 	void Update ()
 	{
 		if (enablePauseButton && Input.GetButtonDown ("Pause"))
@@ -34,6 +41,9 @@ public class PauseController : MonoBehaviour
 		if (paused)
 		{
 			Time.timeScale = 0;
+
+			//adiciona um intervalo extra para se poder atirar novamente. Necessário para que não atire logo após sair do pause.
+			playerController.UpdateNextFireTime(0.15f);
 
 			//exibe o pause caso tenha sido atribuído um canvas para menu de pause
 			if (canvasPause != null)
