@@ -165,7 +165,7 @@ public class GameController : MonoBehaviour
 		dataController.SubmitHighScore (stageScore); //envia recorde
 
 		if (venceu)
-			gameOverText.text = "Você Venceu!";
+			gameOverText.text = "Voce Venceu!";
 		else
 			gameOverText.text = "Game Over!";			
 		
